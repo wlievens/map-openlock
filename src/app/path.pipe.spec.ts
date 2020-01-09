@@ -1,4 +1,4 @@
-import { PathPipe } from './path.pipe';
+import {PathPipe} from './path.pipe';
 
 describe('PathPipe', () => {
   it('create an instance', () => {

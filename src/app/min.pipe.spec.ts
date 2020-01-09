@@ -1,4 +1,4 @@
-import { MinPipe } from './min.pipe';
+import {MinPipe} from './min.pipe';
 
 describe('MinPipe', () => {
   it('create an instance', () => {

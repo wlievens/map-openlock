@@ -1,4 +1,4 @@
-import { RangePipe } from './range.pipe';
+import {RangePipe} from './range.pipe';
 
 describe('RangePipe', () => {
   it('create an instance', () => {
