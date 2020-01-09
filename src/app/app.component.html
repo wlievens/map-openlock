@@ -25,7 +25,7 @@
             <g [attr.transform]="'translate(' + (tile.x * grid) + ', ' + (tile.y * grid) + ')'"
                [style.fill]="tileTypeColors[tile.type]"
                [style.stroke]="tileBorderColor"
-               style="stroke-width: 0; stroke-opacity: 0.5;">
+               style="stroke-width: 0; stroke-opacity: 0.5; fill-opacity: 0.8">
               <ng-container *ngIf="tileTemplateSizes[tile.template]; let template">
                 <ng-container *ngIf="[template.w, template.h] | min; let smallest">
                   <ng-container *ngIf="grid * template.w; let gw">
@@ -37,16 +37,20 @@
                             [attr.d]="template | path: {grid: grid, inset: 0}"
                           ></path>
                           <ng-container *ngFor="let clip of template.clips">
-                            <g
-                              [attr.transform]="'translate(' + ((clip.x - clipSize / 2) * grid) + ' ' + (clip.y * grid) + ')'">
-                              <g [attr.transform]="'rotate(' + (clip.r * 90) + ' ' + (clipSize * grid / 2) + ' ' + 0 + ')'">
-                                <path
-                                  [attr.d]="'M 0,0 A ' + (clipSize * grid / 2) + ',' + (clipSize * grid * 0.25) + ',0,0,0,' + (clipSize * grid) +',0 Z'"
-                                  [attr.cx]="0" [attr.cy]="0" [attr.r]="grid * 0.4"
-                                  style="opacity: 0.75; fill: #8a529a; stroke: #4e4e4e; stroke-width: 1px;"
-                                ></path>
+                            <ng-container *ngIf="clip.vertical ? clipSizeVertical : clipSizeHorizontal; let clipSize">
+                              <g
+                                [attr.transform]="'translate(' + ((clip.x - clipSize / 2) * grid) + ' ' + (clip.y * grid) + ')'">
+                                <g
+                                  [attr.transform]="'rotate(' + (clip.r * 90) + ' ' + (clipSize * grid / 2) + ' ' + 0 + ')'">
+                                  <path
+                                    [attr.d]="'M 0,0 A ' + (clipSize * grid / 2) + ',' + (grid * 0.23) + ',0,0,0,' + (clipSize * grid) +',0'"
+                                    [attr.cx]="0" [attr.cy]="0" [attr.r]="grid * 0.4"
+                                    [attr.fill]="tileTypeColors[tile.type]"
+                                    style="fill-opacity: 1.0; stroke-opacity: 0.5; stroke: #4e4e4e; stroke-width: 1px;"
+                                  ></path>
+                                </g>
                               </g>
-                            </g>
+                            </ng-container>
                           </ng-container>
                           <path
                             [attr.d]="template | path: {grid: grid, inset: margin + border / 2}"
@@ -54,7 +58,7 @@
                           ></path>
                           <ng-container *ngIf="tile.type === 'door'">
                             <path
-                              [attr.d]="template | path: {grid: grid, inset: grid / 4}"
+                              [attr.d]="template | path: {grid: grid, inset: grid * 0.25}"
                               style="opacity: 0.7; fill: white; stroke-width: 1px;"
                             ></path>
                           </ng-container>
