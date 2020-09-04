@@ -137,5 +137,8 @@
       }
     }
   },
-  "defaultProject": "map-openlock"
+  "defaultProject": "map-openlock",
+  "cli": {
+    "analytics": false
+  }
 }
